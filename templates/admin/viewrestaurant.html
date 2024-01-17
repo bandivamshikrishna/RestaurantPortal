@@ -1,0 +1,40 @@
+{% extends "admin/base.html" %}
+{% load widget_tweaks %}
+    
+{% block content %}
+    <div class="container text-center">
+        <h1 class="bg-dark  textprimary p-2 rounded">Existing Restaurants</h1>
+    </div>
+    
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible text-center">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %} 
+    </div>
+<br><br><br>
+    <div class="container w-75">
+        <div class="container bg-white shadow-lg rounded">
+            <div class="row g-5 text-center">
+                {% for restaurant in restaurants %}
+                    <div class="col-sm-4">
+                        <img src="{{restaurant.pic.url}}" alt="" height="150px" width="150px" class="rounded-4">
+                    </div>
+                    <div class="col-sm-8 text-start">
+                        <strong>Restaurant Name : {{restaurant.name}}</strong><br><br>
+                        <strong>Restaurant Address : {{restaurant.address}}</strong><br><br>
+                        <a href="{% url "admin-edit-restaurant" restaurant.id %}" class="btn btn-info me-3 px-4">Edit</a>
+                        <a href="{% url "admin-delete-restaurant" restaurant.id %}" class="btn btn-danger px-4">Delete</a>
+                    </div>
+                    {% endfor %}
+            </div>
+            <br>
+        </div>
+        <br><br>
+    </div>
+    
+{% endblock content %}

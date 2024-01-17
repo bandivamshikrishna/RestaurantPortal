@@ -1,0 +1,171 @@
+{% extends "core/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container-{100} w-100 vh-100 backimg">
+    <br><br><br>
+    <div class="container-fluid w-50 position-absolute px-5">
+        <br><br><br><br><br>
+        <h1 class="fst-italic fw-bold textprimary foodtext">
+            Enjoy Our <br>
+            Delicious Food
+        </h1>
+        <h4 class="fst-italic fw-bold textprimary">From Our Famous Restaurants</h4>
+        <br><br><br><br><br>
+        <div class="px-5">
+            <a href="" class="text-decoration-none text-white px-3 py-2 rounded-1 fw-semiboldm primarybg">Order Here</a>
+        </div>
+    </div>
+</div>
+
+
+<br><br><br><br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="container bg-white shadow-lg text-start h-100">
+                <div class="p-4">
+                    <i class="fa-solid fa-hotel fa-3x"></i>
+                    <h5>Restaurants</h5>
+                    <p>We collabratively work with different 
+                    Restaurants, through this website you
+                    can order the food from our desire
+                    Restaurants.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="container bg-white shadow-lg text-start h-100">
+                <div class="p-4">
+                    <i class="fa fa-user-tie fa-3x "></i>
+                    <h5>Master Chefs</h5>
+                    <p>We collabratively work with different 
+                    Restaurants Chefs, through this website you
+                    can order the food from our desire
+                    Restaurants.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="container bg-white shadow-lg text-start h-100">
+                <div class="p-4">
+                    <i class="fa-sharp fa-solid fa-cart-plus fa-3x"></i>
+                    <h5>Order Online</h5>
+                    <p>You can Order your desired food from 
+                        the desired Restaurant through this 
+                        website.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="container bg-white shadow-lg text-start h-100">
+                <div class="p-4">
+                    <i class="fa fa-user-tie fa-3x "></i>
+                    <h5>24/7 Service</h5>
+                    <p>we are always available to help
+                       you with our 24/7 customer services.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br><br><br>
+<div class="container">
+    <h2 class="textprimary text-center">Our Restaurants</h2>
+    <hr class="border border-dark">
+    <div class="row">
+        {% for restaurant in restaurants %}
+            <div class="col-sm-3 g-3 text-center">
+                <figure class="figure">
+                    <img src="{{restaurant.pic.url}}" alt="" class="rounded" width="150px" height="150px">
+                    <figcaption class="figcaption text-center">
+                        <strong><p>{{restaurant.name}}</p></strong>
+                        <strong>{{restaurant.address}}</p></strong><p>
+                    </figcaption>
+                </figure>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<br><br>
+
+<div class="container text-center">
+    <h2 class="textprimary">Our Food</h2>
+    <nav class="nav nav-tabs justify-content-center">
+        
+        <a href="" class="nav-link text-dark px-5">
+            <i class="fa-solid fa-mug-hot fa-2x textprimary"></i>
+                <strong class="textprimary">BreakFast</strong>
+        </a>
+        
+        <a href="" class="nav-link text-dark px-5">
+            <i class="fa-solid fa-burger fa-2x textprimary"></i>
+                <strong class="textprimary">Lunch</strong>
+        </a>
+        
+        <a href="" class="nav-link text-dark px-5">
+            <i class="fa-solid fa-utensils fa-2x textprimary"></i>
+                <strong class="textprimary">Dinner</strong>
+        </a>
+    </nav>
+</div>
+
+<br><br>
+
+<div class="container">
+    <div class="row g-5">
+        <div class="col-sm-4">
+            <div class="row g-5">
+                <div class="col-sm-6">
+                    <img src="{{breakfast.pic.url}}" alt="" width=150 height=150 class="rounded-4">
+                </div>
+                <div class="col-sm-6 text-center">
+                    <h4>{{breakfast.name}}</h4>
+                    <hr class="border border-dark">
+                    <p>Restaurant: {{breakfast.restaurant.name}}</p>
+                    <p>Price : Rs.{{breakfast.price}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="row g-5">
+                <div class="col-sm-6">
+                    <img src="{{lunch.pic.url}}" alt="" width=150 height=150 class="rounded-4">
+                </div>
+                <div class="col-sm-6 text-center">
+                    <h4>{{lunch.name}}</h4>
+                    <hr class="border border-dark">
+                    <p>Restaurant: {{lunch.restaurant.name}}</p>
+                    <p>Price : Rs.{{lunch.price}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="row g-5">
+                <div class="col-sm-6">
+                    <img src="{{dinner.pic.url}}" alt="" width=150 height=150 class="rounded-4">
+                </div>
+                <div class="col-sm-6 text-center">
+                    <h4>{{dinner.name}}</h4>
+                    <hr class="border border-dark">
+                    <p>Restaurant: {{dinner.restaurant.name}}</p>
+                    <p>Price : Rs.{{dinner.price}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br><br><br><br>
+{% endblock content %}
+    
+
+
+  

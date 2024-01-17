@@ -1,0 +1,117 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Customer Sign Up
+{% endblock title %}
+
+{% block content %}
+    
+<br><br>
+
+
+<div class="container-{100} w-100 loginimg">
+    <br>
+    <div class="container">
+        {% if userform.errors %}
+            {% for field in userform %}
+                    {% for error in field.errors %}
+                    <div class="alert alert-danger alert-dismissible text-center">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <strong>{{field.label}} : </strong> {{ error|striptags }}.
+                    </div>
+                    {% endfor %}
+            {% endfor %}
+        {% endif %} 
+    </div>
+    <div class="container">
+        {% if customerform.errors %}
+            {% for field in customerform %}
+                    {% for error in field.errors %}
+                    <div class="alert alert-danger alert-dismissible text-center">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <strong>{{field.label}} : </strong> {{ error|striptags }}.
+                    </div>
+                    {% endfor %}
+            {% endfor %}
+        {% endif %} 
+    </div>
+    <div class="container">
+        {% if customerform.non_field_errors %}
+                {% for error in customerform.non_field_errors %}
+                <div class="alert alert-danger alert-dismissible text-center">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ error|striptags }}.
+                </div>
+                {% endfor %}
+        {% endif %} 
+    </div>
+    <div class="container">
+        {% if userform.non_field_errors %}
+                {% for error in userform.non_field_errors %}
+                <div class="alert alert-danger alert-dismissible text-center">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ error|striptags }}.
+                </div>
+                {% endfor %}
+        {% endif %} 
+    </div>
+
+    <br><br><br>
+    <div class="container shadow-lg bg-white rounded-2 w-50">
+        <h1 class="text-center">Sign Up</h1>
+        <br><br>
+        <form action="" method="POST" novalidate enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <div class="row g-3">
+                <div class="col-sm-6 px-5">
+                    <strong><label for="" class="text-center">Enter User Name: </label></strong>
+                    <br>
+                    {% render_field userform.username class="form-control" placeholder="Enter User name"%}
+                </div>
+                <div class="col-sm-6 px-5">
+                    <strong><label for="" class="text-center">Enter Email ID: </label></strong>
+                    <br>
+                    {% render_field userform.email class="form-control" placeholder="Enter Email ID"%}
+                </div>
+                <div class="col-sm-6 px-5">
+                    <strong><label for="" class="text-center">Enter Password: </label></strong>
+                    <br>
+                    {% render_field userform.password1 class="form-control" placeholder="Enter Password"%}
+                </div>
+                <div class="col-sm-6 px-5">
+                    <strong><label for="" class="text-center">Enter Confirmation Password: </label></strong>
+                    <br>
+                    {% render_field userform.password2 class="form-control" placeholder="Enter Confirmation Password"%}
+                </div>
+                <div class="col-sm-6 px-5">
+                    <strong><label for="" class="text-center">Enter Mobile Number: </label></strong>
+                    <br>
+                    {% render_field customerform.mobile_number class="form-control" placeholder="Enter Mobile Number"%}
+                </div>
+                <div class="col-sm-6 px-5">
+                    <strong><label for="" class="text-center">Upload Profile Pic: </label></strong>
+                    <br>
+                    {% render_field customerform.pic class="form-control" placeholder="Upload Profile Pic"%}
+                </div>
+                <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                    <input type="submit" value="Create Account" class="form-control w-25 btn btn-success">
+                </div>
+                <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                    <a href="" class="text-decoration-none">Forgot Password</a>
+                </div>
+                <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                    <p>Already have an Account? <a href="{% url "login" %}" class="text-decoration-none">Login</a></p>
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+    <br><br><br><br>
+</div>
+
+
+
+
+{% endblock content %}

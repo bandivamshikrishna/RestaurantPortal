@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        
+        {% endblock title %}
+    </title>
+    <link rel="stylesheet" href="{% static "core/Css/bootstrap.min.css" %}">
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    {% block css %}
+        <link rel="stylesheet" href="{% static "core/Css/style.css" %}">
+    {% endblock css %}
+</head>
+<body>
+    
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 vh-100 text-center position-fixed" style="background-color: #0e0f12;">
+                    {% include "admin/sidebar.html" %}
+                </div>
+
+                <div class="col-sm-9 offset-3" style="background-color:#FAF9F6;">
+                    <br><br>
+                        {% block content %}
+
+
+                        {% endblock content %}
+                </div>
+            </div>  
+        </div>
+        
+    
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

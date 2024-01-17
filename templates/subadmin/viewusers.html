@@ -1,0 +1,45 @@
+{% extends "subadmin/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}
+    SubAdmin View users
+{% endblock title %}
+    
+{% block content %}
+    <div class="container text-center">
+        <h1 class="bg-dark  textprimary p-2 rounded">Existing Users</h1>
+    </div>
+    
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible text-center">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{message}}
+                </div>
+            {% endfor %}
+        {% endif %} 
+    </div>
+<br><br><br>
+    <div class="container w-75">
+        <div class="container bg-white shadow-lg rounded">
+            <div class="row g-5 text-center">
+                {% for user in restusers %}
+                    <div class="col-sm-4">
+                        <img src="{{user.pic.url}}" alt="" height="150px" width="150px" class="rounded-4">
+                    </div>
+                    <div class="col-sm-8 text-start">
+                        <strong>user Name : {{user.user}}</strong><br>
+                        <strong>user Email ID : {{user.user.email}}</strong><br>
+                        <strong>user Mobile Number : {{user.mobile_number}}</strong><br>
+                        <strong>user Type : {{user.user_type}}</strong><br><br>
+                        <a href="{% url "subadmin-delete-users" user.id %}" class="btn btn-danger px-4">Delete</a>
+                    </div>
+                    {% endfor %}
+            </div>
+            <br>
+        </div>
+        <br><br>
+    </div>
+    
+{% endblock content %}

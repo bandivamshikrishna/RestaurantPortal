@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        
+        {% endblock title %}
+    </title>
+    <link rel="stylesheet" href="{% static "core/Css/bootstrap.min.css" %}">
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    {% block css %}
+        <link rel="stylesheet" href="{% static "core/Css/style.css" %}">
+    {% endblock css %}
+</head>
+<body>
+    
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-sm-3 vh-100 text-center position-fixed" style="background-color: #0e0f12;">
+                    <br><br>
+                    <h3 class="fw-bold textprimary text-center"><i class="fa-solid fa-utensils"></i> Restaurant Portal</h3>
+                    <figure class="figure p-1">
+                        <img src="{{request.user.customer.pic.url}}" alt="" class="rounded-circle" width=150 height=150>
+                        <figcaption class="figcaption text-center text-white">
+                            <strong><p>Customer : {{request.user.username|capfirst}}</p></strong>
+                        </figcaption>
+                    </figure>
+                    <nav class="nav flex-column">
+                        <a href="{% url "customer-book-table" 'restaurant' %}" class="nav-link text-white"><i class="fa fa-table me-3"></i>Book a Table</a>
+                        <a href="{% url "customer-order-food" 'restaurants' %}" class="nav-link text-white"><i class="fa-solid fa-burger me-3"></i>Order Food</a>
+                        <a href="{% url "customer-view-table-bookings" 'new' %}" class="nav-link text-white"><i class="fa fa-table me-3"></i>Table Bookings</a>
+                        <a href="{% url "customer-view-food-orders" 'new' %}" class="nav-link text-white"><i class="fa-solid fa-burger me-3"></i>Food Orders</a>
+                        <a href="{% url "user-edit-profile" %}" class="nav-link text-white"><i class="fa-solid fa-user me-3"></i>Edit Profile</a>
+                        <a href="{% url "logout" %}" class="nav-link text-white"><i class="fa-solid fa-right-from-bracket me-3"></i>Logout</a>
+                    </nav>
+                </div>
+
+                <div class="col-sm-9 offset-3" style="background-color:#FAF9F6; height:100vh;">
+                    <br><br>
+                        {% block content %}
+
+                        {% endblock content %}
+                </div>
+            </div>  
+        </div>    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

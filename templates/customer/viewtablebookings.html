@@ -1,0 +1,212 @@
+{% extends "customer/base.html" %}
+
+{% block title %}
+    Customer View Table Orders
+{% endblock title %}
+
+
+{% block content %}
+    
+    <div class="container text-center">
+        {% if args == 'new' %}
+            <h1 class="bg-dark  textprimary p-2 rounded">Table Bookings</h1>
+        {% else %}
+        <h1 class="bg-dark  textprimary p-2 rounded">Viewing Previous Table Bookings</h1>
+        {% endif %}
+    </div>
+
+
+    <div class="container mt-5 text-center">
+        {% if tableorders %}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Table No - Seater</th>
+                        <th scope="col">Check In Time</th>
+                        <th scope="col">Restaurant</th>
+                        <th scope="col">Food</th>
+                        {% if args == 'new' %}
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in tableorders %}
+                        <tr>
+                            <td scope="row">{{forloop.counter}}</td>
+                            <td scope="row">{{order.table.number}} - {{order.table.seater}}</td>
+                            <td scope="row">{{order.check_in}}</td>
+                            <td scope="row">{{order.table.restaurant.name}},<br>{{order.table.restaurant.address}}</td>
+                            {% if order.food_ids %}
+                                <td scope="row"><a href="{% url "customer-view-table-food" args=args id=order.id %}" class="text-decoration-none">View Food</a></td>
+                            {% else %}
+                                <td scope="row">No Food Selected</td>
+                            {% endif %}
+                            {% if args == 'new' %}
+                                <td scope="row"><a href="{% url "customer-edit-table" args='order-id' id=order.id %}"><i class="fa-solid fa-pen-to-square" style="font-size:30px;color:black"></i></a></td>
+                                <td scope="row"><a href="{% url "customer-delete-table" order.id %}"><i class="fa fa-close" style="font-size:30px;color:red"></i></a></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="container mt-5 text-center">
+                <h4>No Tables are Currently Booked,<a href="{% url "customer-book-table" 'restaurant' %}">Book a Table</a></h4>
+            </div>
+        {% endif %}
+
+        {% if args == 'old' %}
+            <div class="container mt-5 text-center">
+                <a href="{% url "customer-view-table-bookings" 'new' %}" class="btn btn-danger px-4">Go Back</a>
+            </div>
+        {% else %}
+            <div class="container mt-5 text-center">
+                <h5><a href="{% url "customer-view-table-bookings" 'old' %}">View Previous Orders</a></h5>
+            </div>
+        {% endif %}
+
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} {% extends "customer/base.html" %}
+
+{% block title %}
+    Customer View Orders
+{% endblock title %}
+
+
+{% block content %}
+    
+    <div class="container text-center">
+        {% if args == 'new' %}
+            <h3>Table Orders</h3>
+        {% else %}
+            <h3>Viewing Previous Table Orders</h3>
+        {% endif %}
+        <hr class="border border-dark">
+    </div>
+
+    
+        {% if args == 'old' %}
+            <a href="" class="btn btn-danger px-3">Go Back</a>
+        {% endif %}
+        
+        
+        <div class="container">
+            {% if args == 'new' %}
+                <a href="{% url "customer-view-orders" 'old' %}">View Previous Orders</a>
+            {% endif %}
+        </div>
+    </div>
+
+    
+    <div class="container mt-5 text-center">
+        {% if args == 'new' %}
+            <h3>Food Orders</h3>
+        {% endif %}
+        <hr class="border border-dark">
+    </div>
+
+    <div class="container mt-5 text-center">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Food Name</th>
+                    <th scope="col">Food Quantity</th>
+                    <th scope="col">Restaurant</th>
+                    <th scope="col">Food Price</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in foodorders %}
+                    <tr>
+                        <td scope="row">{{forloop.counter}}</td>
+                        <td scope="row">{{order.}}</td>
+                        <td scope="row">{{order.table.seater}}</td>
+                        <td scope="row">{{order.table.restaurant.name}},<br>{{order.table.restaurant.address}}</td>
+                        <td scope="row"><a href="{% url "customer-view-table-food" order.id %}" class="text-decoration-none">View Food</a></td>
+                        <td scope="row"><a href=""><i class="fa-solid fa-pen-to-square" style="font-size:30px;color:blue"></i></a></td>
+                        <td scope="row"><a href=""><i class="fa fa-close" style="font-size:30px;color:red"></i></a></td>
+                    </tr>
+                    {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="container">
+            
+        </div>
+    </div>
+    
+    <br><br><br><br>
+
+{% endblock content %} {% endcomment %}

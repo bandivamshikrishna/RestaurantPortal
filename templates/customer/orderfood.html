@@ -1,0 +1,139 @@
+{% extends "customer/base.html" %}
+
+
+{% block title %}
+    Order Food
+{% endblock title %}
+
+
+{% block content %}
+
+    <div class="container text-center">
+        {% if args == 'restaurants' %}
+            <h1 class="bg-dark  textprimary p-2 rounded">Select The Restaurant to order Food</h1>
+        {% endif %}
+
+        {% if args == 'orderfood' %}
+            <h1 class="bg-dark  textprimary p-2 rounded">Select The Food</h1>
+        {% endif %}
+    </div>
+
+    <br>
+
+    <div class="container mt-5 w-75 bg-white shadow-lg rounded">
+        <div class="row g-5">
+            {% if args == 'restaurants' %}
+                {% for restaurant in restaurants %}
+                    <div class="col-sm-4">
+                        <figure class="figure text-center">
+                            <a href="{% url "customer-order-food" restaurant.id %}"><img src="{{restaurant.pic.url}}" alt="" height="150px" width="150px" class="rounded-4"></a>
+                            <figcaption class="figcaption">
+                                <small>{{restaurant.name}}</small><br>
+                                <small>{{restaurant.address}}</small>
+                            </figcaption>
+                        </figure>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+
+            {% if args == 'orderfood' %}
+
+                <form action="" method="POST" id="form_id">
+                    {% csrf_token %}
+                    <div class="container text-center">
+                        <div class="row g-5">
+                            {% for food in foods %}
+                                <div class="col-sm-4">
+                                    <img src="{{food.pic.url}}" alt="" width="150px" height="150px" class="rounded">
+                                    <div class="row d-flex align-items-center justify-content-center">
+                                        <strong>{{food.name}}</strong>
+                                        <strong>Rs.{{food.price}}</strong>
+                                        <input type="hidden" name="food_Ids[]" value={{food.id}}>
+                                        <select name="food_quantity[]" class="rounded fdqq" style="width:65px" id="fdq">
+                                            <option value="" selected>--</option>
+                                            <option value="1">1</option>
+                                            <option value="2">2</option>
+                                            <option value="3">3</option>
+                                            <option value="4">4</option>
+                                            <option value="5">5</option>
+                                            <option value="6">6</option>
+                                            <option value="7">7</option>
+                                            <option value="8">8</option>
+                                            <option value="9">9</option>
+                                            <option value="10">10</option>
+                                            <option value="20">20</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <br><br><br>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <strong><label for="" >Enter Address 1: </label></strong>
+                                <br>
+                                <textarea name="address1" id="add1" cols="40" rows="3"></textarea>
+                            </div>
+                            <div class="col-sm-6">
+                                <strong><label for="" >Enter Address 2: </label></strong>
+                                <br>
+                                <textarea name="address2" id="add2" cols="40" rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 mt-5 text-center">
+                            <input value="Order Food" class="btn btn-success" onclick="get_alert()">
+                        </div>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function get_alert()
+        {
+            
+            let fdquantities = document.getElementsByName('food_quantity[]');
+            let getfdvalidation = true;
+            let eachfdq;
+            for(let i=0; i< fdquantities.length; i++)
+            {
+                eachfdq = fdquantities[i];
+                if(eachfdq.value!="")
+                {
+                    getfdvalidation = false;
+                }
+            }
+            if(document.getElementById("add1").value == "" && document.getElementById("add2").value == "" && getfdvalidation)
+            {
+                alert("Please Enter Address1 and Address2 and Select the Food.");
+            }
+            else if(getfdvalidation)
+            {
+                alert("Please Select The Food..");
+            }
+            else if(document.getElementById("add1").value == "" && document.getElementById("add2").value == "")
+            {
+                alert("Please Enter Address1 and Address2.");
+            }
+            else if(document.getElementById("add1").value == "" && document.getElementById("add2").value != "")
+            {
+                alert("Please Enter Address1");
+            }
+            else if(document.getElementById("add2").value == "" && document.getElementById("add1").value != "")
+            {
+                alert("Please Enter Address2");
+            }
+            else
+            {
+                document.getElementById("form_id").submit();
+            }
+
+        }
+    </script>
+{% endblock content %}

@@ -1,0 +1,110 @@
+{% extends "customer/base.html" %}
+
+
+{% block title %}
+    Customer View individual Foods
+{% endblock title %}
+
+
+{% block content %}
+    <div class="container text-center">
+        {% if args == 'new' %}
+            <h1 class="bg-dark  textprimary p-2 rounded">Food Items</h1>
+        {% else %}
+        <h1 class="bg-dark  textprimary p-2 rounded">Viewing Previous Food Items</h1>
+        {% endif %}
+    </div>
+
+
+
+    <div class="container mt-5 text-center">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">S.No</th>
+                    <th scope="col">Food Name</th>
+                    <th scope="col">Food Quantity</th>
+                    <th scope="col">Food Price</th>
+                    <th scope="col">Total Price</th>
+                    {% if args == 'new' %}
+                        <th scope="col">Edit</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                <form action="" method="POST" id="form-id">
+                    {% csrf_token %}
+                    {% for food in foodorders %}
+                        <input type="hidden" name="food_Ids[]" value={{food.id}}>
+                        <input type="hidden" name="food_Quantities[]" value="{{food.quantity}}" id="{{forloop.counter}}fd_quantity_hidden">
+                        <tr>
+                            <td scope="row">{{forloop.counter}}</td>
+                            <td scope="row">{{food.name}}</td>
+                            <td scope="row" id="{{forloop.counter}}fq">{{food.quantity}}</td>
+                            <td scope="row" id="{{forloop.counter}}fp">{{food.price}}</td>
+                            <td scope="row" id="{{forloop.counter}}tp">{{food.totalprice}}</td>
+                            {% if args == 'new' %}
+                                <td>
+                                    <input value="+" class="btn btn-success" style="width:40px" onclick=addSub("add",{{forloop.counter}})>
+                                    <input value="-" class="btn btn-danger" style="width:40px"  onclick=addSub("sub",{{forloop.counter}})>
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </form>
+            </tbody>
+        </table>
+    
+        <div class="container mt-5 text-center">
+            <h4 id="total-price">Total Price : {{totalprice}}</h4>
+            <br><br>
+            <div class="col-sm-12">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="hidden" name="Save Food" id="saving_food" class="btn btn-success px-3" value="Save Food." onclick=document.getElementById("form-id").submit()>
+                    </div>
+                    <div class="col-sm-6">
+                        <a href="{% url "customer-view-food-orders" args %}" class="btn btn-danger px-4">Go Back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    <script>
+        
+        function addSub(type,counter){
+            document.getElementById("saving_food").type = "submit";
+            
+            fdQuantityID = counter+"fq";
+            fdPriceID = counter+"fp";
+            fdTotalPriceID = counter+"tp";
+            totalPriceID = "total-price";
+            fdQuantityHiddenID = counter+"fd_quantity_hidden";
+            
+
+
+            fdQuantity = + document.getElementById(fdQuantityID).innerHTML;
+            fdPrice = + document.getElementById(fdPriceID).innerHTML;
+            fdTotalPrice = + document.getElementById(fdTotalPriceID).innerHTML;
+            totalPrice = + (document.getElementById("total-price").innerHTML).split(':')[1];
+            fdQuantityHidden = +document.getElementById(fdQuantityHiddenID).value;
+
+            if(type === "add")
+            {
+                fdQuantity += 1;
+                totalPrice += fdPrice;
+            }
+            else if(type === "sub" && fdQuantity > 0)
+            {
+                fdQuantity -= 1;
+                totalPrice -= fdPrice;
+            }
+            
+            document.getElementById(fdQuantityID).innerHTML = fdQuantity;
+            document.getElementById(fdTotalPriceID).innerHTML = fdQuantity * fdPrice;
+            document.getElementById(totalPriceID).innerHTML = "Total Price : "+totalPrice;
+            document.getElementById(fdQuantityHiddenID).value = fdQuantity;
+            
+        }
+    </script>
+{% endblock content %}

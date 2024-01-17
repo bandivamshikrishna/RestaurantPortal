@@ -1,0 +1,66 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Login
+{% endblock title %}
+
+{% block content %}
+<br><br>
+
+
+<div class="container-{100} w-100 vh-100 loginimg">
+    <br><br>
+    <div class="container">
+        {% if authform.errors %}
+            {% for field in authform %}
+                    {% for error in field.errors %}
+                    <div class="alert alert-danger alert-dismissible text-center">
+                      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                      <strong>{{field.label}} : </strong> {{ error|striptags }}.
+                    </div>
+                    {% endfor %}
+            {% endfor %}
+        {% endif %} 
+    </div>
+    <div class="container">
+        {% if authform.non_field_errors %}
+                {% for error in authform.non_field_errors %}
+                <div class="alert alert-danger alert-dismissible text-center">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{ error|striptags }}.
+                </div>
+                {% endfor %}
+        {% endif %} 
+    </div>
+
+    <br><br><br>
+    <div class="container shadow-lg bg-white rounded-2 text-center w-25">
+        <h1>Login</h1>
+        <br><br>
+        <form action="" method="POST" novalidate>
+            {% csrf_token %}
+            
+            <div class="row g-3">
+                <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                    {% render_field authform.username class="form-control w-75" placeholder="Enter User name"%}
+                </div>
+                <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                    {% render_field authform.password class="form-control w-75" placeholder="Enter Password"%}
+                </div>
+                <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                    <input type="submit" value="Login" class="form-control w-50 btn btn-success">
+                </div>
+                <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                    <a href="" class="text-decoration-none">Forgot Password</a>
+                </div>
+                <div class="col-sm-12 d-flex align-items-center justify-content-center">
+                    <p>Doesn't have an Account? <a href="{% url "customer-singup" %}" class="text-decoration-none">Create Account</a></p>
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+    
+{% endblock content %}

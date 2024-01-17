@@ -1,0 +1,65 @@
+{% extends "customer/base.html" %}
+
+{% block title %}
+    Customer View Food
+{% endblock title %}
+
+
+{% block content %}
+
+    <div class="container text-center">
+        {% if args == 'new' %}
+            <h1 class="bg-dark  textprimary p-2 rounded">Food Orders</h1>
+        {% else %}
+        <h1 class="bg-dark  textprimary p-2 rounded">Viewing Previous Food Orders</h1>
+        {% endif %}
+    </div>
+
+        <div class="container mt-5 text-center">
+            {% if foodorders %}
+                <table class="table">
+                    <thead>
+                        <tr> 
+                            <th scope="col">Order ID</th> 
+                            <th scope="col">Restaurant</th>
+                            <th scope="col">Food</th>
+                            <th scope="col">Food Quantity</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">View Food</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            {% for food in foodorders %}
+                                <input type="hidden" name="food_Ids[]" value={{food.id}}>
+                                <input type="hidden" name="food_Quantities[]" value="{{food.quantity}}" id="{{forloop.counter}}fd_quantity_hidden">
+                                <tr>
+                                    <td scope="row">{{food.orderID}}</td>
+                                    <td scope="row"><pre>{{food.restaurant}}</pre></td>
+                                    <td scope="row">{{food.foods}}</td>
+                                    <td scope="row">{{food.food_quantities}}</td>
+                                    <td scope="row">{{food.address}}</td>
+                                    <td scope="row">{{food.total_price}}</td>
+                                    <td><a href="{% url "customer-view-individual-foods" args=args id=food.orderID %}" class="text-decoration-none">View Food</a></td>
+                                </tr>
+                            {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div class="container mt-5 text-center">
+                    <h4>No Food Orders are Currently Placed,<a href="{% url "customer-order-food" 'restaurants' %}">Order Food</a></h4>
+                </div>
+            {% endif %}
+    
+            {% if args == 'old' %}
+                <div class="container mt-5 text-center">
+                    <a href="{% url "customer-view-food-orders" 'new' %}" class="btn btn-danger px-4">Go Back</a>
+                </div>
+            {% else %}
+                <div class="container mt-5 text-center">
+                    <h5><a href="{% url "customer-view-food-orders" 'old' %}">View Previous Orders</a></h5>
+                </div>
+            {% endif %}
+        </div>
+
+{% endblock content %}

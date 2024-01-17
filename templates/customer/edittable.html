@@ -1,0 +1,122 @@
+{% extends "customer/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}
+    Customer Edit table
+{% endblock title %}
+
+
+{% block content %}
+    <div class="container text-center">
+        <h1 class="bg-dark  textprimary p-2 rounded">Edit Table</h1>
+    </div>
+
+    <div class="container mt-5 w-75 text-center bg-white shadow-lg rounded">
+
+        {% if type == 'change-table' %}
+            <div class="row">
+                {% for table in tables %}
+                    <div class="col-sm-4">
+                        <figure class="figure text-center p-3">
+                            <a href="{% url "customer-edit-table" args='table-id' id=table.id %}"><img src="{{table.pic.url}}" alt="" height="150px" width="150px" class="rounded-4"></a>
+                            <figcaption class="figcaption text-start">
+                                <small>Table No : {{table.number}}</small><br>
+                                <small>Table Seater : {{table.seater}}</small>
+                            </figcaption>
+                        </figure>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+
+            <figure class="figure text-center p-3">
+            <img src="{{ordertable.table.pic.url}}" alt="" height="150px" width="150px" class="rounded-4">
+            <figcaption class="figcaption text-center">
+                <small>Table No : {{ordertable.table.number}}</small><br>
+                <small>Table Seater : {{ordertable.table.seater}}</small><br>
+                <a href="{% url "customer-edit-table" args='change-table' id=0 %}" class="btn btn-danger">Change Table</a><br>
+            </figcaption>
+            </figure>
+
+            <br><br>
+            <div class="container">
+                <form action=""  method="POST" novalidate id="form_id">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-6 px-5">
+                            <strong><label for="" class="text-center">Enter Check In Date & Time: </label></strong>
+                            <br>
+                            {% render_field tableform.check_in class="form-control" id="check_in_date" %}
+                        </div>
+                        <div class="col-sm-6 px-5">
+                            <strong><label for="" class="text-center">Enter Check Out Date & Time: </label></strong>
+                            <br>
+                            {% render_field tableform.check_out class="form-control" id="check_out_date" %}
+                        </div>
+                    </div>
+                    <input type="hidden" name="table.id" value={{ordertable.id}}>
+                    <br><br>
+                    <div class="col-sm-12 text-center">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <input class="btn btn-success" onclick="get_alert()" value="Update The Table">
+                            </div>
+                            <div class="col-sm-6">
+                                <a href="{% url "customer-view-table-bookings" 'new' %}" class="btn btn-danger px-5">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+
+
+    <script>
+       
+        var today = new Date();
+        var dd = today.getDate(); //Current day
+        var mm = today.getMonth() + 1; //January is 0!
+        var yyyy = today.getFullYear(); //(Year is 2022)
+        var hh = today.getHours(); //Current hour
+        var m = today.getMinutes(); //Current minutes
+    
+        if (dd < 10)
+        {
+            dd = '0' + dd;
+        } 
+        if (mm < 10)
+        {
+            mm = '0' + mm;
+        }
+        if(hh < 10)
+        {
+            hh = '0' + hh;
+        }
+        if(m < 10)
+        {
+            m = '0' + m;
+        }
+        {% comment %} "2000-10-06T12:12:55" {% endcomment %}
+        hh = hh + 1;
+        check_in_min = yyyy + '-' + mm + '-' + dd + "T"+hh+":"+m+":00";
+        document.getElementById("check_in_date").setAttribute("min", check_in_min);   
+        document.getElementById("check_out_date").setAttribute("min", check_in_min);  
+        function get_alert()
+        {
+            var AmOrPm = hh >= 12 ? 'pm' : 'am';
+            h = (hh % 12) || 12;
+            if(document.getElementById("check_in_date").value < document.getElementById("check_in_date").min)
+            {
+                alert("Please Select The Check in date greater than " + h +" 'o clock : "+ m+" mins");
+            }
+            else
+            {
+                document.getElementById("form_id").submit();
+            }
+        }
+        check_out_min = yyyy + '-' + mm + '-' + dd + "T"+hh+":"+m+":00";
+        </script>
+
+{% endblock content %}

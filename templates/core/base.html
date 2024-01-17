@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}
+        
+        {% endblock title %}
+    </title>
+    <link rel="stylesheet" href="{% static "core/Css/bootstrap.min.css" %}">
+    <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    {% block css %}
+        <link rel="stylesheet" href="{% static "core/Css/style.css" %}">
+    {% endblock css %}
+</head>
+<body>
+
+    {% include "core/navbar.html" %}
+    {% block content %}
+    
+    {% endblock content %}
+    
+
+    <div class="container-fluid" style="background-color:#030b24;">
+        <div class="row">
+            <div class="col-sm-6 g-5 text-white">
+                <h3 class="textprimary">Contact Us</h3><br>
+                    <p><i class="fa-solid fa-location-dot me-3"></i>Hyderabad,Telangana</p> 
+                    <p><i class="fa-solid fa-phone me-3"></i>1234567890</p>
+                    <p><i class="fa-solid fa-envelope me-3"></i>vamshi@restaurantportal.com</p>
+                    <br>
+                    <a href="" class="btn btn-outline-light rounded-circle"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="" class="btn btn-outline-light rounded-circle"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="" class="btn btn-outline-light rounded-circle"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+            <div class="col-sm-6 g-5 text-white">
+                <h3 class="textprimary">Timings</h3><br>
+                <strong>Morning 10AM to 12PM</strong>
+            </div>
+        </div>
+           
+        <br><br><br>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

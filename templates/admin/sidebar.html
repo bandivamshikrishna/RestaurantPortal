@@ -1,0 +1,16 @@
+{% load static %}
+<br><br>
+<h3 class="fw-bold textprimary text-center"><i class="fa-solid fa-utensils"></i> Restaurant Portal</h3>
+<figure class="figure p-3">
+    <img src="{% static "core/Images/backimg.jpg" %}" alt="" class="rounded-circle" width=150 height=150>
+    <figcaption class="figcaption text-center text-white">
+        <strong><p>Admin</p></strong>
+    </figcaption>
+</figure>
+<nav class="nav flex-column">
+    <a href="{% url "admin-add-restaurant" %}" class="nav-link text-white"><i class="fa-solid fa-hotel me-3"></i>Add Restaurant</a>
+    <a href="{% url "admin-add-subadmins" %}" class="nav-link text-white"><i class="fa-solid fa-user me-3"></i>Add Admins</a>
+    <a href="{% url "admin-view-reports" %}" class="nav-link text-white"><i class="fa-solid fa-bell me-3"></i>View Requests</a>
+    <a href="{% url "admin-reports" %}" class="nav-link text-white"><i class="fas fa-chart-pie me-3"></i>Reports</a>
+    <a href="{% url "logout" %}" class="nav-link text-white"><i class="fa-solid fa-right-from-bracket me-3"></i>Logout</a>
+</nav>

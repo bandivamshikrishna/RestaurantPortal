@@ -1,0 +1,28 @@
+.anchor:hover{
+    color:orange;
+}
+
+.textprimary{
+    color:orange;
+}
+
+.primarybg{
+    background-color:orange;
+}
+
+.backimg{
+    background-image: url('/static/core/Images/backimg.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.loginimg{
+    background-image: url('/static/core/Images/loginimg.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.foodtext{
+    font-size: 60px;
+}
+
